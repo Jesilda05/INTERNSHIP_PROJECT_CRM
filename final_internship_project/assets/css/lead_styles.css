@@ -1,0 +1,127 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #e3f2fd, #59abee); /* Blue gradient background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: 250px;
+    background-color: #007bff;
+    padding: 1rem;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    border-right: 2px solid #003366; /* Dark blue line separating sidebar from main content */
+    position: fixed; /* Fixes the sidebar in place */
+    top: 0;
+    left: 0;
+    bottom: 0; /* Ensures it spans the full height */
+}
+
+/* Sidebar header */
+.sidebar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Navigation list */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 0.5rem 0;
+}
+
+nav a {
+    display: block;
+    color: #003366; /* Dark blue text color for contrast */
+    background-color: #e3f2fd; /* Light blue background for links */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    border: 2px solid #003366; /* Dark blue border */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #b3e5fc; /* Slightly darker light blue on hover */
+    border-color: #002244; /* Darker blue border on hover */
+}
+
+/* Main content styling */
+main {
+    margin-left: 250px; /* Adjust margin for fixed sidebar */
+    padding: 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    overflow-y: auto;
+    min-height: 100vh;
+}
+
+/* Dashboard styling */
+.dashboard {
+    padding: 2rem;
+    background-color: #ffffff;
+}
+
+.dashboard h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    color: #333;
+    border-bottom: 2px solid #003366; /* Dark blue underline */
+    padding-bottom: 0.5rem;
+}
+
+/* Card styling for statistics */
+.dashboard-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.dashboard-stat-card {
+    background-color: #007bff; /* Light blue background */
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid #003366; /* Dark blue border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(50% - 1rem); /* Adjusts card width and spacing */
+    min-width: 250px; /* Ensures a minimum width for smaller screens */
+}
+
+.dashboard-stat-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #003366;
+}
+
+.dashboard-stat-card p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* Footer styling */
+footer {
+    background-color: #003366;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 250px; /* Adjust for fixed sidebar */
+    width: calc(100% - 250px); /* Adjust for fixed sidebar */
+}
