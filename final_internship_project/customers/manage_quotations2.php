@@ -27,7 +27,7 @@ if ($conn->error) {
 
 ?>
 
-<?php include('header2.php'); ?>
+<?php include('header2.html'); ?>
 <div class="cust_container">
 <h2><b>Manage Quotations</b></h2>
 

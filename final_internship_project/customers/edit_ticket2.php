@@ -79,7 +79,7 @@ if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
 }
 ?>
 
-<?php include('header2.php'); ?>
+<?php include('header2.html'); ?>
 
 <div class="cust_container">
     <h3>Update Ticket</h3>

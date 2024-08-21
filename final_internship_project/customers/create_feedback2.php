@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php include('header2.php'); ?>
+<?php include('header2.html'); ?>
 <h3>Create Feedback</h3>
 <div class="cust_container">
     <?php if (!empty($err)): ?>

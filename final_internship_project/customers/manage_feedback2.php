@@ -24,7 +24,7 @@ if ($conn->error) {
 
 ?>
 
-<?php include('header2.php'); ?>
+<?php include('header2.html'); ?>
 <div class="cust_container">
 <h3><b>Manage Feedback</b></h3> 
 
