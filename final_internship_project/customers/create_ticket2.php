@@ -10,6 +10,25 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
 
 $err = "";
 $success = "";
+function logUserActivity($userId, $role, $action) {
+    global $conn;
+    $sql = "INSERT INTO user_logs (user_id, role, action, timestamp) VALUES (?, ?, ?, NOW())";
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        error_log("Error preparing statement for logging user activity: " . $conn->error);
+        return;
+    }
+
+    $stmt->bind_param('iss', $userId, $role, $action);
+    $stmt->execute();
+
+    if ($stmt->error) {
+        error_log("Error executing statement for logging user activity: " . $stmt->error);
+    }
+
+    $stmt->close();
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //filter_var used for validating and sanitizing input
 
@@ -27,7 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!preg_match('/^[a-zA-Z\s.,!?]+$/', $sub)) {
         $err = "Subject can only contain letters, spaces, and basic punctuation.";
     } else {
-                // insert query
+                // validating inputs
+
 
         $sql = "INSERT INTO tickets (customer_id, subject, description, created_at) VALUES (?, ?, ?, NOW())";
         $prestmt = $conn->prepare($sql);
@@ -37,6 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($prestmt->execute()) {
                 $success = 'Your ticket has been created successfully!';
+                logUserActivity($cust_id, $_SESSION['role'], 'Create Ticket'); 
+                header("Location:manage_tickets2.php");
+
             } else {
                 error_log("Error occurred while creating ticket: " . $prestmt->error);
             }
@@ -50,8 +73,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php include('header2.php'); ?>
+<!DOCTYPE html>
+<html>
+<head>
+   
+   
+</head>
+<body>
+    <div class="cust_container">
 
-<h3>Create Ticket</h3>
 
 <?php if (!empty($err)): ?>
     <div class="error-message"><?php echo $err; ?></div>
@@ -69,5 +99,78 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <button type="submit">Submit Ticket</button>
 </form>
+</form>
+    </div>
+</body>
+</html>
 
-<?php include('footer.php'); ?>
+
+<style>
+   body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+
+    }
+
+    .cust_container {
+        max-width: 900px; /* Increased width */
+        margin: 40px auto; /* Adjusted margins */
+        padding: 40px; /* Increased padding */
+        text-align: center;
+        background-color: #cc5e61;
+        border:4px solid black;
+
+        border-radius: 12px; /* Increased border radius */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increased box shadow */
+    }
+
+    form {
+        border: 4px solid black; /* Increased border thickness */
+        padding: 30px; /* Increased padding */
+        border-radius: 12px;
+        background-color: white;
+    }
+
+    input[type="text"], input[type="email"] {
+        width: calc(100% - 48px); /* Increased width */
+        padding: 15px; /* Increased padding */
+        margin-bottom: 20px;
+        border: 2px solid black; /* Increased border */
+        border-radius: 6px;
+    }
+
+    textarea {
+        width: calc(100% - 48px); /* Adjusted to match inputs */
+        padding: 15px; /* Increased padding */
+        margin-bottom: 20px;
+        border: 2px solid black; /* Increased border */
+        border-radius: 6px;
+        height: 150px; /* Increased height */
+    }
+
+    button {
+        background-color: #cc5e61;
+        color: black;
+        padding: 15px; /* Increased padding */
+        border: 2px solid black;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px; /* Increased font size */
+        width: 100%;
+    }
+
+    button:hover {
+        background-color: #e63c3c;
+    }
+
+    .error {
+        color: black;
+        margin-bottom: 20px;
+    }
+
+    .success {
+        color: green;
+        margin-top: 20px;
+    }
+</style>

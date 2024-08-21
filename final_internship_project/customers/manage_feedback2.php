@@ -28,8 +28,8 @@ if ($conn->error) {
 ?>
 
 <?php include('header2.php'); ?>
-
-<h2><b>Manage Feedback</b></h2> <!-- Corrected the closing tag -->
+<div class="cust_container">
+<h3><b>Manage Feedback</b></h3> <!-- Corrected the closing tag -->
 
 <table border="1">
     <thead>
@@ -59,7 +59,6 @@ if ($conn->error) {
     </tbody>
 </table>
 
-<?php include('footer.php'); ?>
 
 <?php
 // Free up resources and close database connections
@@ -67,3 +66,61 @@ $res->close();
 $prestmt->close();
 $conn->close();
 ?>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+
+    }
+    .cust_container {
+        max-width: 800px; 
+        margin: 40px auto; 
+        padding: 20px; 
+        text-align: center; 
+        border: 5px solid black; 
+        border-radius: 8px; 
+        background-color: #cc5e61; 
+    }
+
+    h3 {
+        margin-bottom: 20px; 
+        font-size: 24px;
+        color: white; 
+    }
+
+    table {
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-top: 20px; 
+    }
+
+    th, td {
+        border: 4px solid black; 
+        padding: 10px; 
+        text-align: left; 
+        background-color: white; 
+    }
+
+    th {
+        background-color: #e63c3c; 
+        color: white; 
+    }
+
+    tr:nth-child(even) {
+        background-color: #f16f6f; 
+    }
+
+    a.edit-link, a.delete-link {
+        color: grey; 
+        text-decoration: none; 
+    }
+
+    a.edit-link:hover, a.delete-link:hover {
+        text-decoration: underline; 
+    }
+
+    a.delete-link {
+        color: #d9534f; 
+    }
+</style>

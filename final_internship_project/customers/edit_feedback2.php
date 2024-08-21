@@ -50,8 +50,8 @@ if (isset($_GET['id'])) {
 
                     if (empty($text)) {
                         $error = "Feedback cannot be empty.";
-                    } elseif (!preg_match('/^[a-zA-Z\s.,!?]+$/', $text)) {
-                        $error = "Feedback can only contain letters, spaces, and basic punctuation.";
+                    } elseif (!preg_match('/^[a-zA-Z0-9\s.,!?]+$/', $text)) {
+                        $error = "Feedback can only contain letters,numbers, spaces, and basic punctuation.";
                     } else {
                         $upd_sql = "UPDATE feedback SET feedback = ? WHERE id = ? AND customer_id = ?";
                         $stmt = $conn->prepare($upd_sql);
@@ -60,6 +60,8 @@ if (isset($_GET['id'])) {
                         if ($stmt->execute()) {
                             $success = 'Feedback updated successfully.';
                             logUserActivity($cust_id, $_SESSION['role'], 'Updated Feedback');
+                            header("Location: manage_feedback2.php");
+
 
                         } else {
                             $error = 'Error updating feedback: ' . $stmt->error;
@@ -93,6 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
 
         if ($stmt->execute()) {
             $success = 'Feedback created successfully.';
+            header("Location: manage_feedback2.php");
+
         } else {
             $error = 'Error creating feedback: ' . $stmt->error;
         }
@@ -102,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
 ?>
 
 <?php include('header2.php'); ?>
-
+<div class="cust_container">
 <h3><?php echo isset($id) ? 'Update Feedback' : 'Create Feedback'; ?></h3>
 
 <?php if (!empty($error)) : ?>
@@ -123,5 +127,73 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
     
     <button type="submit"><?php echo isset($id) ? 'Update' : 'Submit'; ?></button>
 </form>
+    </div>
 
-<?php include('footer.php'); ?>
+    <style>
+ body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+
+    }
+
+.cust_container {
+    max-width: 800px; /* Increased width */
+    margin: 40px auto; /* Adjusted to center the container */
+    padding: 30px; /* Increased padding */
+    text-align: center;
+    background-color: #cc5e61;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border:4px solid black;
+
+}
+
+h3 {
+    margin-bottom: 30px;
+    font-size: 26px;
+    color: black;
+}
+
+form {
+    border: 4px solid black;
+    padding: 30px; /* Increased padding */
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+textarea {
+    width: 90%; /* Increased width */
+    height: 200px; /* Increased height */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid black;
+    border-radius: 6px;
+    font-size: 16px; /* Increased font size for better readability */
+}
+
+button {
+    background-color: #cc5e61;
+    color: black;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px; /* Increased font size */
+    width: 100%;
+}
+
+button:hover {
+    background-color: #e63c3c;
+}
+
+.error {
+    color: black;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    color: green;
+    margin-top: 20px;
+}
+
+</style>

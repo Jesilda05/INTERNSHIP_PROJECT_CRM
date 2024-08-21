@@ -42,18 +42,18 @@ if (isset($_GET['id'])) {
         $id = (int)$_GET['id'];
         $cust_id = (int)$_SESSION['user_id'];
 
-        $sql = "DELETE FROM tickets WHERE id = ? AND customer_id = ?";
+        $sql = "DELETE FROM feedback WHERE id = ? AND customer_id = ?";
         $prestmt = $conn->prepare($sql);
 
         if ($prestmt) {
             $prestmt->bind_param('ii', $id, $cust_id);
 
             if ($prestmt->execute()) {
-                echo 'Your ticket has been deleted successfully!';
-                error_log("Ticket deleted successfully");
-                logUserActivity($cust_id, $_SESSION['role'], 'Delete Ticket');
+                echo 'Your feedback has been deleted successfully!';
+                error_log("feedback deleted successfully");
+                logUserActivity($cust_id, $_SESSION['role'], 'Delete feedback');
             } else {
-                error_log("Error deleting ticket: " . $prestmt->error);
+                error_log("Error deleting feedback: " . $prestmt->error);
                 echo "Error deleting ticket. Please try again.";
             }
 
@@ -73,6 +73,6 @@ if (isset($_GET['id'])) {
 sleep(1);
 
 // Redirect to manage_tickets page
-header("Location: manage_tickets2.php");
+header("Location: manage_feedback2.php");
 exit();
 ?>
