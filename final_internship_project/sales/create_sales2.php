@@ -3,7 +3,6 @@ session_start();
 include('../mainconn/db_connect.php'); 
 include('../mainconn/authentication.php'); 
 
-// Check if the user is a Sales Manager
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'SalesManager') {
     header('Location: ../login.php');
     exit();

@@ -3,7 +3,6 @@
 session_start();
 include("../mainconn/db_connect.php");
 
-// Check for user authentication
 if (!isset($_SESSION["user_id"]) || $_SESSION['role'] !== 'SalesManager') {
     header("Location: ../login.php");
     exit();
@@ -59,7 +58,6 @@ if (isset($_GET['id'])) {
     echo "ID not set.";
 }
 
-// Redirect after displaying message
 header("Location: manage_sales2.php");
 exit();
 ?>
