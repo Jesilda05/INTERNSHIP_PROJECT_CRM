@@ -3,7 +3,6 @@ session_start();
 include('../mainconn/db_connect.php');
 include('../mainconn/authentication.php');
 
-// Ensure only lead managers can access this page
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'LeadManager') {
     header('Location: ../login.php');
     exit();
