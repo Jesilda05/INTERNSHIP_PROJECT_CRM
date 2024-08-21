@@ -51,7 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($prestmt->execute()) {
                 $success = 'Sales record has been created successfully!';
-                logUserActivity($sales_manager_id, $_SESSION['role'], 'Create Sales'); 
+                logUserActivity($sales_manager_id, $_SESSION['role'], 'Create Sales');
+                header("Location:manage_sales2.php");
+
 
             } else {
                 error_log("Error occurred while creating sales record: " . $prestmt->error);
@@ -67,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php include('header2.php'); ?>
 
-<div class="container">
-    <h3 class="form-heading">Create Sales</h3>
+<div class="sales_container">
+    <h3 class="sales_form-heading">Create Sales</h3>
 
     <?php if (!empty($err)): ?>
         <div class="alert alert-danger"><?php echo htmlspecialchars($err); ?></div>
@@ -94,80 +96,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <style>
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f6f9;
         margin: 0;
         padding: 0;
+        font-family:  Tahoma, Geneva, sans-serif;
+
+         
     }
 
-    .container {
-        max-width: 600px;
-        margin: 50px auto;
+    .sales_container {
+        max-width: 700px;
+        margin: 20px auto; 
         padding: 30px;
-        background-color: lightskyblue;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    h3.form-heading {
-        font-size: 28px;
-        color: #343a40;
-        margin-bottom: 30px;
         text-align: center;
-        font-weight: 600;
+        background-color: #cc5e61;
+        border-radius: 8px;
+        border:4px solid black;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .form-group {
+    h3 {
         margin-bottom: 20px;
-        text-align: left;
+        font-size: 30px;
+        color: black;
     }
 
-    label {
-        font-size: 16px;
-        font-weight: 500;
-        color: #343a40;
+    form {
+        border: 4px solid black;
+        padding: 30px;
+        border-radius: 8px;
+        background-color: white;
     }
 
-    .form-control {
-        width: 100%;
-        padding: 12px;
-        margin-top: 8px;
-        border: 1px solid #ced4da;
+    input[type="text"], input[type="email"] {
+        width: calc(100% - 24px);
+        padding: 30px;
+        margin-bottom: 15px;
+        border: 2px solid black;
         border-radius: 4px;
-        box-sizing: border-box;
     }
 
-    .btn {
-        background-color: #007BFF;
-        color: white;
-        padding: 12px 20px;
-        border: none;
+    select {
+        width: calc(100% - 24px);
+        padding: 20px;
+        margin-bottom: 15px;
+        border: 2px solid black;
+        border-radius: 4px;
+    }
+
+    button {
+        background-color:#cc5e61 ;
+        color: black;
+        padding: 10px;
+        border: 2px solid black;
         border-radius: 4px;
         cursor: pointer;
         font-size: 16px;
         width: 100%;
     }
 
-    .btn:hover {
-        background-color: #0056b3;
+    button:hover {
+        background-color: #e63c3c;
     }
 
-    .alert {
-        padding: 15px;
+    .error {
+        color: red;
         margin-bottom: 20px;
-        border: 1px solid transparent;
-        border-radius: 4px;
     }
 
-    .alert-danger {
-        color: #721c24;
-        background-color: #f8d7da;
-        border-color: #f5c6cb;
-    }
-
-    .alert-success {
-        color: #155724;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
+    .success {
+        color: green;
+        margin-top: 20px;
     }
 </style>

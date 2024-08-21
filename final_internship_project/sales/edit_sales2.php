@@ -3,7 +3,6 @@ session_start();
 include('../mainconn/db_connect.php');
 include('../mainconn/authentication.php');
 
-// Check user authentication
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'SalesManager') {
     header('Location: ../login.php');
     exit();
@@ -28,16 +27,13 @@ function logUserActivity($userId, $role, $action) {
     $stmt->close();
 }
 
-// User ID type casted to int
 $sales_manager_id = (int)$_SESSION['user_id'];
 $error = $success = '';
 
-// Check if updating an existing sales record
 if (isset($_GET['id'])) {
     if (filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
         $id = (int)$_GET['id'];
 
-        // Corrected SQL query to select all columns
         $query = "SELECT * FROM sales WHERE id = ? AND sales_manager_id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('ii', $id, $sales_manager_id);
@@ -58,6 +54,8 @@ if (isset($_GET['id'])) {
                         $upd_sql = "UPDATE sales SET amount = ? WHERE id = ? AND sales_manager_id = ?";
                         $stmt = $conn->prepare($upd_sql);
                         $stmt->bind_param('dii', $amount, $id, $sales_manager_id);
+                        header("Location: manage_sales2.php"); 
+
 
                         if ($stmt->execute()) {
                             $success = 'Sales record updated successfully.';
@@ -80,7 +78,6 @@ if (isset($_GET['id'])) {
     }
 }
 
-// Handle creating a new sales record
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
     $amount = filter_var(trim($_POST['amount']), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
@@ -104,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
 ?>
 
 <?php include('header2.php'); ?>
-<div class="container">
+<div class="sales_container">
 <h3 class="form-heading">Edit Sales</h3>
 
 <h3><?php echo isset($id) ? 'Update Sales Record' : 'Create Sales Record'; ?></h3>
@@ -131,50 +128,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
 <?php endif; ?>
 
 <style>
-    .container {
-        max-width: 600px; /* Limit container width */
-        margin: 40px auto 20px auto; /* Move container up with top margin, center horizontally, add bottom margin */
-        padding: 20px; /* Add padding around the container */
-        text-align: center; /* Center-align text within the container */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family:  Tahoma, Geneva, sans-serif;
+
     }
 
-    .form-heading {
-        margin-bottom: 20px; /* Space between heading and form */
-        font-size: 24px;
-        color: #007BFF; /* Color to match form border */
+    .sales_container {
+        max-width: 600px;
+        margin: 20px auto; 
+        padding: 20px;
+        text-align: center;
+        background-color: #cc5e61;
+        border:4px solid black;
+
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        margin-bottom: 20px;
+        font-size: 30px;
+        color: black;
     }
 
     form {
-        border: 2px solid #007BFF; /* Blue border for form */
-        padding: 40px;
+        border: 4px solid black;
+        padding: 20px;
         border-radius: 8px;
-        background-color: #f9f9f9;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-        box-sizing: border-box; /* Ensure padding is included in width calculation */
+        background-color: white;
     }
 
     input[type="text"], input[type="email"] {
-        width: calc(100% - 24px); /* Adjust width for padding and border */
-        padding: 15px; /* Increased padding */
-        margin-bottom: 20px; /* Increased margin */
-        border: 1px solid #007BFF; /* Blue border for inputs */
+        width: calc(100% - 24px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid black;
         border-radius: 4px;
-        box-sizing: border-box; /* Ensure padding is included in width calculation */
+    }
+
+    select {
+        width: calc(100% - 24px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid black;
+        border-radius: 4px;
     }
 
     button {
-        background-color: #007BFF; /* Blue button background */
-        color: white;
-        padding: 15px; /* Increased padding */
-        border: none;
+        background-color:#cc5e61 ;
+        color: black;
+        padding: 10px;
+        border: 2px solid black;
         border-radius: 4px;
         cursor: pointer;
-        font-size: 18px;
-        width: 100%; /* Full-width button */
+        font-size: 16px;
+        width: 100%;
     }
 
     button:hover {
-        background-color: #0056b3; /* Darker blue on hover */
+        background-color: #e63c3c;
     }
 
     .error {
@@ -184,8 +198,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
 
     .success {
         color: green;
-        margin-top: 20px; /* Space above success message */
+        margin-top: 20px;
     }
 </style>
-
-

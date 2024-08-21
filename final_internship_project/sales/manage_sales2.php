@@ -2,25 +2,20 @@
 session_start();
 include('../mainconn/db_connect.php');
 
-// Check for user authentication
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'SalesManager') {
     header('Location: ../login.php');
     exit();
 }
 
-// Get Sales Manager ID and cast it to int
 $sales_manager_id = (int)$_SESSION['user_id'];
 
-// Prepare SQL query to retrieve all sales records for the Sales Manager
 $sql = "SELECT * FROM sales WHERE sales_manager_id = ? ORDER BY created_at DESC";
 $prestmt = $conn->prepare($sql);
 $prestmt->bind_param('i', $sales_manager_id);
 
-// Execute the statement
 $prestmt->execute();
 $res = $prestmt->get_result();
 
-// Error handling
 if ($conn->error) {
     echo "SORRY! We couldn't retrieve your data due to the following error.";
     error_log($conn->error);
@@ -29,7 +24,7 @@ if ($conn->error) {
 ?>
 
 <?php include('header2.php'); ?>
-<div class="container">
+<div class="sales_container">
 <h3>Manage Sales</h3>
 
 <table border="1">
@@ -66,59 +61,62 @@ $res->close();
 $prestmt->close();
 $conn->close();
 ?>
-
 <style>
-    .container {
-        max-width: 800px; /* Limit container width */
-        margin: 40px auto; /* Center container horizontally and add top margin */
-        padding: 20px; /* Add padding around the container */
-        text-align: center; /* Center-align text within the container */
-        border: 5px solid black; /* Light border around the container */
-        border-radius: 8px; /* Rounded corners */
-        background-color: #f9f9f9; /* Light background color */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family:  Tahoma, Geneva, sans-serif;
+
+    }
+
+    .sales_container {
+        max-width: 800px; 
+        margin: 40px auto; 
+        padding: 20px; 
+        text-align: center; 
+        border: 5px solid black; 
+        border-radius: 8px; 
+        background-color: #cc5e61; 
     }
 
     h3 {
-        margin-bottom: 20px; /* Space between heading and table */
+        margin-bottom: 20px; 
         font-size: 24px;
-        color: #007BFF; /* Heading color */
+        color: white; 
     }
 
     table {
-        width: 100%; /* Full-width table */
-        border-collapse: collapse; /* Collapse table borders */
-        margin-top: 20px; /* Space above table */
-
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-top: 20px; 
     }
 
     th, td {
-        border: 2px solid black; /* Light border for table cells */
-        padding: 10px; /* Padding inside cells */
-        text-align: left; /* Align text to the left */
-        background-color: lightblue; /* Light background color */
-
+        border: 4px solid black; 
+        padding: 10px; 
+        text-align: left; 
+        background-color: white; 
     }
 
     th {
-        background-color: #007BFF; /* Blue background for header */
-        color: white; /* White text for header */
+        background-color: #e63c3c; 
+        color: white; 
     }
 
     tr:nth-child(even) {
-        background-color: #f2f2f2; /* Alternating row colors */
+        background-color: #f16f6f; 
     }
 
     a.edit-link, a.delete-link {
-        color: #007BFF; /* Link color */
-        text-decoration: none; /* Remove underline */
+        color: grey; 
+        text-decoration: none; 
     }
 
     a.edit-link:hover, a.delete-link:hover {
-        text-decoration: underline; /* Underline on hover */
+        text-decoration: underline; 
     }
 
     a.delete-link {
-        color: #d9534f; /* Red color for delete link */
+        color: #d9534f; 
     }
 </style>
-
