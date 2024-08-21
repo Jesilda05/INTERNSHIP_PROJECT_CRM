@@ -3,33 +3,30 @@ session_start();
 include('../mainconn/db_connect.php');
 include('../mainconn/authentication.php');
 
-// Check if the user is authenticated and is a 'Customer'
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
     header('Location: ../login.php');
     exit();
 }
 
-$cust_id = (int)$_SESSION['user_id']; // Cast user_id to integer for security
+$cust_id = (int)$_SESSION['user_id']; 
 
-// Prepare the SQL query to retrieve feedback data for the logged-in customer
 $sql = "SELECT * FROM feedback WHERE customer_id = ? ORDER BY created_at DESC";
 $prestmt = $conn->prepare($sql);
 $prestmt->bind_param('i', $cust_id);
 
-// Execute the prepared statement and check for errors
 $prestmt->execute();
 $res = $prestmt->get_result();
 
 if ($conn->error) {
     echo "SORRY! We couldn't retrieve your data due to the following error.";
-    error_log($conn->error); // Log the error for further analysis
+    error_log($conn->error); 
 }
 
 ?>
 
 <?php include('header2.php'); ?>
 <div class="cust_container">
-<h3><b>Manage Feedback</b></h3> <!-- Corrected the closing tag -->
+<h3><b>Manage Feedback</b></h3> 
 
 <table border="1">
     <thead>
@@ -61,7 +58,6 @@ if ($conn->error) {
 
 
 <?php
-// Free up resources and close database connections
 $res->close();
 $prestmt->close();
 $conn->close();

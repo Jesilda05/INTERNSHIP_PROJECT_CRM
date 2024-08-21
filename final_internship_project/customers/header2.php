@@ -1,4 +1,3 @@
-<!-- header2.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +20,6 @@
             width: 100%;
         }
 
-        /* Sidebar styles */
         .cust_sidebar {
             width: 250px;
             background-color: #000000;
@@ -61,10 +59,9 @@
             background-color: #cc5e61;
         }
 
-        /* Main content and card section */
         .main {
-            margin-left: 260px; /* Increased margin to give space between the sidebar and content */
-            width: calc(100% - 280px); /* Adjusted to fill remaining space after sidebar and extra space */
+            margin-left: 260px; 
+            width: calc(100% - 280px); 
             padding: 20px;
             background-color: white;
         }

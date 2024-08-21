@@ -3,16 +3,13 @@ session_start();
 include('../mainconn/db_connect.php'); 
 include('../mainconn/authentication.php'); 
 
-// Check if the user is authenticated and is a 'Customer'
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
     header('Location: ../login.php');
     exit();
 }
 
-// Type casting user id to integer
 $cust_id = (int)$_SESSION['user_id'];
 
-// Select query to fetch quotations along with admin's response and status
 $sql = "SELECT id, customer_id, details, created_at, response, response_date, status 
         FROM quotations 
         WHERE customer_id = ? 
@@ -85,7 +82,6 @@ if ($conn->error) {
 
 
 <?php
-// Free up resources and close database connections
 $res->close();
 $prestmt->close();
 $conn->close();

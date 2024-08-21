@@ -45,7 +45,7 @@
             border: 0;
             border-top: 2px solid #cc5e61;
             margin-bottom: 20px;
-            width: 95%; /* Extended divider width */
+            width: 95%; 
         }
 
         .cust_cards {
@@ -61,7 +61,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 95%; /* Extended card width */
+            width: 95%; 
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -72,7 +72,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 95%; /* Extended card width */
+            width: 95%; 
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -83,7 +83,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 95%; /* Extended card width */
+            width: 95%; 
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -107,26 +107,21 @@
 </head>
 <body>
     <?php 
-    // Include header for sidebar
     include 'header2.php'; 
 
-    // Database connection
     include '../mainconn/db_connect.php';
 
-    // Fetch total counts
     $quotationCount = $conn->query("SELECT COUNT(*) AS total FROM quotations")->fetch_assoc()['total'];
     $ticketCount = $conn->query("SELECT COUNT(*) AS total FROM tickets")->fetch_assoc()['total'];
     $feedbackCount = $conn->query("SELECT COUNT(*) AS total FROM feedback")->fetch_assoc()['total'];
     ?>
 
     <div class="container">
-        <!-- main start -->
+    
         <div class="main">
-            <!-- Heading and divider -->
             <div class="heading">Customer Dashboard</div>
             <hr class="divider">
 
-            <!-- card start -->
             <div class="cust_cards">
                 <div class="quot_card">
                     <div class="card-content">
@@ -147,9 +142,7 @@
                     </div>
                 </div>
             </div>
-            <!-- card end -->
         </div>
-        <!-- main end-->
     </div>
 </body>
 </html>

@@ -3,16 +3,13 @@ session_start();
 include('../mainconn/db_connect.php');
 include('../mainconn/authentication.php');
 
-// Checking for user authentication
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
     header('Location: ../login.php');
     exit();
 }
 
-// type casting user id to int
 $cust_id = (int)$_SESSION['user_id'];
 
-//select query
 $sql = "SELECT * FROM tickets WHERE customer_id = ? ORDER BY created_at DESC";
 $prestmt = $conn->prepare($sql);
 $prestmt->bind_param('i', $cust_id);
@@ -20,7 +17,6 @@ $prestmt->bind_param('i', $cust_id);
 $prestmt->execute();
 $res = $prestmt->get_result();
 
-// displaying message if error occurs
 if ($conn->error) {
     echo "SORRY! We couldn't retrieve your data due to the following error.";
     error_log($conn->error);
@@ -84,7 +80,6 @@ if ($conn->error) {
 
 
 <?php
-// Free up resources and close database connections
 $res->close();
 $prestmt->close();
 $conn->close();

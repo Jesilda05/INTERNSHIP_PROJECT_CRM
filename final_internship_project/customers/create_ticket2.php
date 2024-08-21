@@ -2,7 +2,6 @@
 session_start(); 
 include('../mainconn/db_connect.php'); 
 include('../mainconn/authentication.php'); 
-//authentication
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
     header('Location: ../login.php');
     exit();
@@ -30,14 +29,11 @@ function logUserActivity($userId, $role, $action) {
     $stmt->close();
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //filter_var used for validating and sanitizing input
 
     $sub = filter_var(trim($_POST['subject']), FILTER_SANITIZE_STRING);
     $desc = filter_var(trim($_POST['description']), FILTER_SANITIZE_STRING);
-    // Check if customer exists
 
     $cust_id = (int)$_SESSION['user_id'];
-    // validating inputs
 
     if (empty($sub) || empty($desc)) {
         $err = "Please fill in all fields.";
@@ -46,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!preg_match('/^[a-zA-Z\s.,!?]+$/', $sub)) {
         $err = "Subject can only contain letters, spaces, and basic punctuation.";
     } else {
-                // validating inputs
 
 
         $sql = "INSERT INTO tickets (customer_id, subject, description, created_at) VALUES (?, ?, ?, NOW())";
@@ -114,49 +109,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     .cust_container {
-        max-width: 900px; /* Increased width */
-        margin: 40px auto; /* Adjusted margins */
-        padding: 40px; /* Increased padding */
+        max-width: 900px; 
+        margin: 40px auto; 
+        padding: 40px;
         text-align: center;
         background-color: #cc5e61;
         border:4px solid black;
 
-        border-radius: 12px; /* Increased border radius */
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increased box shadow */
+        border-radius: 12px; 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
     }
 
     form {
-        border: 4px solid black; /* Increased border thickness */
-        padding: 30px; /* Increased padding */
+        border: 4px solid black; 
+        padding: 30px;
         border-radius: 12px;
         background-color: white;
     }
 
     input[type="text"], input[type="email"] {
-        width: calc(100% - 48px); /* Increased width */
-        padding: 15px; /* Increased padding */
+        width: calc(100% - 48px); 
+        padding: 15px; 
         margin-bottom: 20px;
-        border: 2px solid black; /* Increased border */
+        border: 2px solid black; 
         border-radius: 6px;
     }
 
     textarea {
-        width: calc(100% - 48px); /* Adjusted to match inputs */
-        padding: 15px; /* Increased padding */
+        width: calc(100% - 48px); 
+        padding: 15px; 
         margin-bottom: 20px;
-        border: 2px solid black; /* Increased border */
+        border: 2px solid black; 
         border-radius: 6px;
-        height: 150px; /* Increased height */
+        height: 150px; 
     }
 
     button {
         background-color: #cc5e61;
         color: black;
-        padding: 15px; /* Increased padding */
+        padding: 15px; 
         border: 2px solid black;
         border-radius: 6px;
         cursor: pointer;
-        font-size: 18px; /* Increased font size */
+        font-size: 18px; 
         width: 100%;
     }
 

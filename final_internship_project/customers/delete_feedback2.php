@@ -6,7 +6,6 @@ include("../mainconn/authentication.php");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check for user authentication
 if (!isset($_SESSION["user_id"]) || $_SESSION['role'] !== 'Customer') {
     header("Location: ../login.php");
     exit();
@@ -69,10 +68,8 @@ if (isset($_GET['id'])) {
     echo "ID not set.";
 }
 
-// Sleep for 1 second to ensure logging happens
 sleep(1);
 
-// Redirect to manage_tickets page
 header("Location: manage_feedback2.php");
 exit();
 ?>

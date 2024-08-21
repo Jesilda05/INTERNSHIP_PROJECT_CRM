@@ -3,7 +3,7 @@ session_start();
 include('../mainconn/db_connect.php'); 
 include('../mainconn/authentication.php'); 
 
-// Authentication
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
     header('Location: ../login.php');
     exit();
@@ -12,39 +12,34 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
 $err = "";
 $success = "";
 
-// Function to log user activity
 function logUserActivity($userId, $role, $action) {
     global $conn;
 
     $sql = "INSERT INTO user_logs (user_id, role, action, timestamp) VALUES (?, ?, ?, NOW())";
     $stmt = $conn->prepare($sql);
 
-    // Check if the statement was successfully prepared
     if (!$stmt) {
         error_log("Error preparing statement for logging user activity: " . $conn->error);
-        return false; // Return false to indicate failure
+        return false; 
     }
 
     $stmt->bind_param('iss', $userId, $role, $action);
     $stmt->execute();
 
-    // Check if the statement executed successfully
     if ($stmt->error) {
         error_log("Error executing statement for logging user activity: " . $stmt->error);
-        return false; // Return false to indicate failure
+        return false; 
     }
 
     $stmt->close();
-    return true; // Return true to indicate success
+    return true; 
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product = filter_var(trim($_POST['product']), FILTER_SANITIZE_STRING);
     $details = filter_var(trim($_POST['details']), FILTER_SANITIZE_STRING);
     $cust_id = (int)$_SESSION['user_id'];
 
-    // Check if customer exists
     $query = "SELECT id FROM customers WHERE id = ?";
     $pre_stmt = $conn->prepare($query);
     $pre_stmt->bind_param('i', $cust_id);
@@ -56,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     $pre_stmt->close();
 
-    // Validating inputs
     if (empty($product) || empty($details)) {
         $err = 'PLEASE FILL IN ALL FIELDS';
     } elseif (!preg_match('/^[a-zA-Z0-9\s.,!?]+$/', $details)) {
@@ -64,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!preg_match('/^[a-zA-Z0-9\s]+$/', $product)) {
         $err = "Product can only contain letters, numbers, and spaces.";
     } else {
-        // Insert quotation into the database
         $sql = "INSERT INTO quotations (customer_id, product, details, created_at) VALUES (?, ?, ?, NOW())";
         $prestmt = $conn->prepare($sql);
         $prestmt->bind_param('iss', $cust_id, $product, $details);
@@ -74,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location:manage_quotations2.php");
 
 
-            // Attempt to log user activity
             if (!logUserActivity($cust_id, $_SESSION['role'], 'Create Quotation')) {
                 error_log("Failed to log the user activity for quotation creation.");
 
@@ -126,49 +118,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
     .cust_container {
-        max-width: 900px; /* Increased width */
-        margin: 40px auto; /* Adjusted margins */
-        padding: 40px; /* Increased padding */
+        max-width: 900px; 
+        margin: 40px auto; 
+        padding: 40px; 
         text-align: center;
         background-color: #cc5e61;
         border:4px solid black;
 
-        border-radius: 12px; /* Increased border radius */
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increased box shadow */
+        border-radius: 12px; 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
     }
 
     form {
-        border: 4px solid black; /* Increased border thickness */
-        padding: 30px; /* Increased padding */
+        border: 4px solid black; 
+        padding: 30px; 
         border-radius: 12px;
         background-color: white;
     }
 
     input[type="text"], input[type="email"] {
-        width: calc(100% - 48px); /* Increased width */
-        padding: 15px; /* Increased padding */
+        width: calc(100% - 48px); 
+        padding: 15px; 
         margin-bottom: 20px;
-        border: 2px solid black; /* Increased border */
+        border: 2px solid black; 
         border-radius: 6px;
     }
 
     textarea {
-        width: calc(100% - 48px); /* Adjusted to match inputs */
-        padding: 15px; /* Increased padding */
+        width: calc(100% - 48px); 
+        padding: 15px; 
         margin-bottom: 20px;
-        border: 2px solid black; /* Increased border */
+        border: 2px solid black; 
         border-radius: 6px;
-        height: 150px; /* Increased height */
+        height: 150px; 
     }
 
     button {
         background-color: #cc5e61;
         color: black;
-        padding: 15px; /* Increased padding */
+        padding: 15px; 
         border: 2px solid black;
         border-radius: 6px;
         cursor: pointer;
-        font-size: 18px; /* Increased font size */
+        font-size: 18px; 
         width: 100%;
     }
 

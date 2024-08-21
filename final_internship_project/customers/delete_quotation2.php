@@ -3,7 +3,6 @@ session_start();
 include("../mainconn/db_connect.php");
 include("../mainconn/authentication.php");
 
-// Check for user authentication
 if (!isset($_SESSION["user_id"]) || $_SESSION['role'] !== 'Customer') {
     header("Location: ../login.php");
     exit();
@@ -29,12 +28,10 @@ function logUserActivity($userId, $role, $action) {
     $stmt->close();
 }
 
-// Checking if the ID exists and valid
 if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
     $id = (int)$_GET['id'];
     $cust_id = (int)$_SESSION['user_id'];
 
-    // Delete query
     $sql = "DELETE FROM quotations WHERE id = ? AND customer_id = ?";
     $prestmt = $conn->prepare($sql);
 
@@ -59,7 +56,6 @@ if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
     echo "Invalid ID or ID not set.";
 }
 
-// Delay header redirection until logging completes
 header("Location: manage_quotations2.php");
 exit();
 ?>

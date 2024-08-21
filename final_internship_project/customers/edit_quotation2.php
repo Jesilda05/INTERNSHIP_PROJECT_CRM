@@ -3,7 +3,6 @@ session_start();
 include('../mainconn/db_connect.php');
 include('../mainconn/authentication.php');
 
-//  authentication
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
     header('Location: ../login.php');
     exit();
@@ -144,9 +143,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
 
     }
     .cust_container {
-        max-width: 800px; /* Increased width */
-        margin: 40px auto; /* Adjusted to center the container */
-        padding: 30px; /* Increased padding */
+        max-width: 800px;
+        margin: 40px auto; 
+        padding: 30px; 
         text-align: center;
         background-color: #cc5e61;
         border-radius: 10px;
@@ -163,19 +162,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
 
     form {
         border: 4px solid black;
-        padding: 30px; /* Increased padding */
+        padding: 30px; 
         border-radius: 10px;
         background-color: #fff;
     }
 
     textarea {
-        width: 90%; /* Increased width */
-        height: 200px; /* Increased height */
+        width: 90%; 
+        height: 200px; 
         padding: 15px;
         margin-bottom: 20px;
         border: 2px solid black;
         border-radius: 6px;
-        font-size: 16px; /* Increased font size for better readability */
+        font-size: 16px; 
     }
 
     button {
@@ -184,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['id'])) {
         padding: 12px;
         border-radius: 4px;
         cursor: pointer;
-        font-size: 18px; /* Increased font size */
+        font-size: 18px; 
         width: 100%;
         margin-top:20px;
     }
