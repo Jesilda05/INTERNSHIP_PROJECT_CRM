@@ -1,34 +1,30 @@
-/* General styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex; /* Set display to flex to allow side-by-side layout */
-    flex-direction: row; /* Align sidebar and content horizontally */
+    display: flex; 
     min-height: 100vh;
-    background: linear-gradient(to right, #e3f2fd, #59abee); /* Blue gradient background */
-    color: #333;
+    background: linear-gradient(to right, #f9e5e4, #fbd8d8); 
 }
 
-/* Sidebar styling */
+
 .sidebar {
-    width: 200px; /* Sidebar width */
-    background-color: #007bff;
+    width: 250px; 
+    background-color: #f8c6c4; 
     padding: 1rem;
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 4px rgba(112, 156, 232, 0.1);
     overflow-y: auto;
-    border-right: 2px solid #003366; /* Dark blue line separating sidebar from main content */
-    position: fixed;
+    border-right: 2px solid #f9a4a3; 
+    position: fixed; 
     top: 0;
     left: 0;
     bottom: 0;
+    height: 100vh;
 }
 
-
 .sidebar h1 {
-    color: #ffffff;
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    color: #333;
+    margin-top: 0;
 }
 
 nav ul {
@@ -43,34 +39,33 @@ nav li {
 
 nav a {
     display: block;
-    color: #003366; /* Dark blue text color for contrast */
-    background-color: #007bff; /* Light blue background for links */
+    color: #003366; 
+    background-color: #f8c6c4; 
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
     padding: 0.75rem 1rem;
     border-radius: 4px;
-    border: 2px solid #003366; /* Dark blue border */
+    border: 2px solid #f9a4a3; 
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 nav a:hover {
-    background-color: #b3e5fc; /* Slightly darker light blue on hover */
-    border-color: #002244; /* Darker blue border on hover */
+    background-color: #f9a4a3; 
+    border-color: #f8c6c4; 
 }
 
-/* Main content styling */
+
 main {
-    margin-left: 10px; /* Adjusted margin for fixed sidebar */
+    margin-left: 250px; 
     padding: 2rem;
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(225, 146, 209, 0.1);
     flex: 1;
     overflow-y: auto;
     min-height: 100vh;
-    border-left: 2px solid #003366; /* Dark blue line on the left side of the main content */
-}
-/* Dashboard styling */
+    border-left: 2px solid #f9a4a3; }
+
 .dashboard {
     padding: 2rem;
     background-color: #ffffff;
@@ -80,11 +75,10 @@ main {
     margin-top: 0;
     font-size: 2rem;
     color: #333;
-    border-bottom: 2px solid #003366; /* Dark blue underline */
+    border-bottom: 2px solid #f9a4a3;
     padding-bottom: 0.5rem;
 }
 
-/* Card styling for statistics */
 .dashboard-stats {
     display: flex;
     gap: 1rem;
@@ -92,28 +86,27 @@ main {
 }
 
 .dashboard-stat-card {
-    background-color: #007bff; /* Light blue background */
+    background-color: #f8c6c4; 
     padding: 1.5rem;
     border-radius: 8px;
-    border: 2px solid #003366; /* Dark blue border */
+    border: 2px solid #f9a4a3; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1 1 calc(50% - 1rem); /* Adjusts card width and spacing */
-    min-width: 250px; /* Ensures a minimum width for smaller screens */
+    flex: 1 1 calc(50% - 1rem); 
+    min-width: 250px; 
 }
 
 .dashboard-stat-card h3 {
     margin-top: 0;
     font-size: 1.25rem;
-    color: #003366;
+    color: #333;
 }
 
 .dashboard-stat-card p {
     margin: 0.5rem 0;
     font-size: 1.1rem;
-    color: #ffffff; /* Make the text white for contrast */
+    color: #333; 
 }
 
-/* Recent sales table styling */
 .recent-sales {
     margin-top: 2rem;
 }
@@ -121,7 +114,7 @@ main {
 .recent-sales h2 {
     font-size: 1.75rem;
     margin-bottom: 1rem;
-    color: #003366;
+    color: #f9a4a3;
 }
 
 .recent-sales table {
@@ -129,30 +122,17 @@ main {
     border-collapse: collapse;
 }
 
-.recent-sales th, 
-.recent-sales td {
+.recent-sales th, .recent-sales td {
     padding: 0.75rem;
     text-align: left;
-    border-bottom: 2px solid #003366;
+    border-bottom: 1px solid #ddd;
 }
 
 .recent-sales th {
-    background-color: #e3f2fd;
-    color: #003366;
+    background-color: #f8c6c4; 
+    color: #333;
 }
 
-.recent-sales td {
-    background-color: #ffffff;
-}
-
-/* Footer styling */
-footer {
-    background-color: #003366;
-    color: #ffffff;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    left: 250px; /* Adjust for fixed sidebar */
-    width: calc(100% - 250px); /* Adjust for fixed sidebar */
+.recent-sales tr:nth-child(even) {
+    background-color: #f9e5e4; 
 }

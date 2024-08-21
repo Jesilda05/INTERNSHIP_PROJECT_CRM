@@ -1,35 +1,29 @@
 body {
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: white; 
+    background-color: white;
     color: #100f0f;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
-.lead_sidebar {
+.sidebar {
     width: 250px;
     background-color: #000000; 
-    padding: 1.5rem;
-    box-shadow: 2px 0 4px rgba(112, 156, 232, 0.1); 
+    padding: 1rem;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     border-right: 2px solid #003366; 
-    position: fixed; 
-    top: 0;
-    left: 0;
-    bottom: 0; 
 }
 
-.lead_sidebar h1 {
+.sidebar h1 {
     margin: 0;
     font-size: 1.5rem;
-    color: white; 
+    color: white;
 }
 
 nav ul {
-    list-style: circle;
+    list-style: none;
     padding: 0;
     margin: 0;
 }
@@ -44,10 +38,10 @@ nav a {
     background-color: rgb(124, 106, 106); 
     text-decoration: none;
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 0.75rem 1rem;
-    border-radius: 6px;
-    border: 2.5px solid #0a0f14; 
+    border-radius: 4px;
+    border: 2.5px solid black; 
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -56,22 +50,22 @@ nav a:hover {
     border-color: #002244; 
 }
 
-main {
-    background-color: white; 
-    margin-left: 250px; 
-    padding: 2rem;
-    box-shadow: 0 4px 8px rgba(225, 146, 209, 0.1); 
+.main-content {
     flex: 1;
-    overflow-y: auto;
-    min-height: 100vh;
-}
-
-.lead_dashboard {
     padding: 2rem;
-    background-color: white; 
+    background-color: #ffffff; 
+    box-shadow: 0 4px 8px rgba(225, 146, 209, 0.1);
+    overflow-y: auto;
 }
 
-.lead_dashboard h2 {
+.dashboard {
+    max-width: 100%;
+    margin: 0;
+    padding: 2rem;
+    background-color: #ffffff; 
+}
+
+.dashboard h1 {
     margin-top: 0;
     font-size: 2rem;
     color: #0b0b0b;
@@ -79,29 +73,50 @@ main {
     padding-bottom: 0.5rem;
 }
 
-.lead_dashboard-stats {
+.dashboard-links {
+    margin-bottom: 2rem;
+}
+
+.dashboard-links a {
+    display: inline-block;
+    margin: 0.5rem 1rem;
+    padding: 0.75rem 1.25rem;
+    background-color: #cc5e61; 
+    color: #101112;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-links a:hover {
+    background-color: grey; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-stats {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
 }
 
-.lead_dashboard-stat-card {
+.dashboard-stat-card {
     background-color: #cc5e61; 
     padding: 1.5rem;
     border-radius: 8px;
     border: 2px solid #101112;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex: 1 1 calc(50% - 1rem); 
     min-width: 250px; 
 }
 
-.lead_dashboard-stat-card h3 {
+.dashboard-stat-card h3 {
     margin-top: 0;
     font-size: 1.25rem;
     color: black;
 }
 
-.lead_dashboard-stat-card p {
+.dashboard-stat-card p {
     margin: 0.5rem 0;
     font-size: 1.1rem;
     color: #333;
