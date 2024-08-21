@@ -11,9 +11,9 @@ include('../mainconn/db_connect.php');
       
 .lead_sidebar {
     width: 250px;
-    background-color: #000000; /* Flat black background for the sidebar */
+    background-color: #000000; 
     padding: 1.5rem;
-    box-shadow: 2px 0 4px rgba(112, 156, 232, 0.1); /* Subtle shadow for depth */
+    box-shadow: 2px 0 4px rgba(112, 156, 232, 0.1); 
     overflow-y: auto;
     border-right: 2px solid #003366; 
     position: fixed; 
@@ -25,7 +25,7 @@ include('../mainconn/db_connect.php');
 .lead_sidebar h1 {
     margin: 0;
     font-size: 1.5rem;
-    color: white; /* White text for contrast */
+    color: white; 
 }
 
 nav ul {
@@ -41,7 +41,7 @@ nav li {
 nav a {
     display: block;
     color: white; 
-    background-color: rgb(124, 106, 106); /* Flat color for navigation links */
+    background-color: rgb(124, 106, 106); 
     text-decoration: none;
     font-weight: 500;
     font-size: 1.5rem;
@@ -52,15 +52,14 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #cc5e61; /* Flat color on hover */
-    border-color: #002244; 
+    background-color: #cc5e61; 
 }
 
 main {
-    background-color: white; /* Flat white background for the main content */
+    background-color: white; 
     margin-left: 250px; 
     padding: 2rem;
-    box-shadow: 0 4px 8px rgba(225, 146, 209, 0.1); /* Subtle shadow for depth */
+    box-shadow: 0 4px 8px rgba(225, 146, 209, 0.1); 
     flex: 1;
     overflow-y: auto;
     min-height: 100vh;
