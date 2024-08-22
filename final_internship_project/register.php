@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $err = "Invalid email format.";
     } else {
         if ($role === 'Admin') {
-            // Check if the admin already exists
             $sql = "SELECT id, password FROM admins WHERE email = ? AND name = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('ss', $email, $name);
@@ -25,16 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->store_result();
             
             if ($stmt->num_rows > 0) {
-                // Admin exists, check if password is set
                 $stmt->bind_result($admin_id, $password);
                 $stmt->fetch();
                 
                 if (!empty($password)) {
-                    // Redirect to login page if password is set
                     header('Location: login.php');
                     exit();
                 } else {
-                    // Redirect to set password page
                     $_SESSION['temp_name'] = $name;
                     $_SESSION['temp_email'] = $email;
                     $_SESSION['temp_role'] = $role;
@@ -42,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     exit();
                 }
             } else {
-                // Insert the admin into the table
                 $sql = "INSERT INTO admins (name, email) VALUES (?, ?)";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param('ss', $name, $email);
@@ -58,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         } else {
-            // Check in the relevant table for Customers, Sales Manager, and Lead Manager
             $tables = [
                 'Customer' => 'customers',
                 'SalesManager' => 'salesmanagers',
@@ -70,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $table = $tables[$role];
 
-                // Check if the name and email exist in the corresponding table
                 $sql = "SELECT id, password FROM $table WHERE email = ? AND name = ?";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param('ss', $email, $name);
@@ -78,16 +71,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->store_result();
 
                 if ($stmt->num_rows > 0) {
-                    // Record exists, check if password is set
                     $stmt->bind_result($user_id, $password);
                     $stmt->fetch();
 
                     if (!empty($password)) {
-                        // Redirect to login page if password is set
                         header('Location: login.php');
                         exit();
                     } else {
-                        // Redirect to set password page
                         $_SESSION['temp_name'] = $name;
                         $_SESSION['temp_email'] = $email;
                         $_SESSION['temp_role'] = $role;
@@ -134,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 </html>
 <style>
-    /* styles.css */
 
 body {
     font-family: Georgia, serif;
@@ -161,7 +150,7 @@ form {
     align-items: center;
     background-color: white;
     padding: 20px;
-    border: 5px solid black; /* This sets a solid black border */
+    border: 5px solid black; 
 
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -174,7 +163,7 @@ label {
 
 input, select, button {
     padding: 10px;
-    border: 2px solid black; /* This sets a solid black border */
+    border: 2px solid black; 
     border-radius: 3px;
     margin-bottom: 10px;
 }

@@ -2,7 +2,6 @@
 session_start();
 include('mainconn/db_connect.php');
 
-// Initialize variables
 $err = $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -14,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $err = "Invalid email format.";
     } else {
-        // Check in each table based on role
         $tables = [
             'admins' => 'Admin',
             'customers' => 'Customer',
@@ -44,10 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['role'] = $role;
                     $_SESSION['name'] = $user['name'];
                     
-                    // Log the login activity
                     logUserActivity($_SESSION['user_id'],$_SESSION['role'], 'Login');
 
-                    // Redirect based on role
                     if ($role === 'Admin') {
                         header('Location: admin/dashboard2.php');
                     } elseif ($role === 'Customer') {
@@ -62,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $err = 'Incorrect password.';
                 }
                 $userFound = true;
-                break; // Exit loop once a match is found
+                break; 
             }
         }
 
@@ -72,10 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Function to log user activity
 function logUserActivity($userId, $role, $activity) {
     global $conn;
-    // Correct the query to include the 'action' field
     $sql = "INSERT INTO user_logs (user_id, role, action, timestamp) VALUES (?, ?, ?, NOW())";
     $stmt = $conn->prepare($sql);
 
@@ -84,7 +78,6 @@ function logUserActivity($userId, $role, $activity) {
         return;
     }
 
-    // Bind the correct number of parameters
     $stmt->bind_param('iss', $userId, $role, $activity);
     $stmt->execute();
 
@@ -126,7 +119,6 @@ function logUserActivity($userId, $role, $activity) {
 </body>
 </html>
 <style>
-    /* styles.css */
 
 body {
     font-family: Georgia, serif;
@@ -153,7 +145,7 @@ form {
     align-items: center;
     background-color: white;
     padding: 20px;
-    border: 5px solid black; /* This sets a solid black border */
+    border: 5px solid black; 
 
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -166,7 +158,7 @@ label {
 
 input, select, button {
     padding: 10px;
-    border: 2px solid black; /* This sets a solid black border */
+    border: 2px solid black; 
     border-radius: 3px;
     margin-bottom: 10px;
 }

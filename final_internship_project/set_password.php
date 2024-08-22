@@ -10,10 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($password)) {
         $err = 'Password is required.';
     } else {
-        // Hash the password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Determine the table based on role
         $role = $_SESSION['temp_role'];
         $table = '';
 
@@ -30,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (empty($table)) {
             $err = 'Invalid role.';
         } else {
-            // Update the user with the hashed password
             $sql = "UPDATE $table SET password = ? WHERE email = ? AND name = ?";
             $stmt = $conn->prepare($sql);
 
@@ -40,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_param('sss', $hashed_password, $_SESSION['temp_email'], $_SESSION['temp_name']);
                 if ($stmt->execute()) {
                     $success = 'Password set successfully! You can now log in.';
-                    unset($_SESSION['temp_name'], $_SESSION['temp_email'], $_SESSION['temp_role']); // Clear session data
-                    header('Location: login.php'); // Redirect to login
+                    unset($_SESSION['temp_name'], $_SESSION['temp_email'], $_SESSION['temp_role']); 
+                    header('Location: login.php'); 
                     exit();
                 } else {
                     $err = 'Error executing query: ' . $stmt->error;

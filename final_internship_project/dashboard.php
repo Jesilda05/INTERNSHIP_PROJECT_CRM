@@ -17,7 +17,7 @@ $role = $_SESSION['role'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Dashboard</title>
-    <link rel="stylesheet" href="assets/styles.css"> <!-- Adjust the path as needed -->
+    <link rel="stylesheet" href="assets/styles.css"> 
 </head>
 <body>
     <header>
