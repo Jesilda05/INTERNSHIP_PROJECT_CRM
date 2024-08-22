@@ -146,7 +146,7 @@ $conn->close();
             <div class="dashboard-stats">
                 <div class="dashboard-stat-card">
                     <h3>Total Sales</h3>
-                    <p>$<?php echo number_format($stats['total_sales'], 2); ?></p>
+                    <p>Rs<?php echo number_format($stats['total_sales'], 2); ?></p>
                 </div>
                 <div class="dashboard-stat-card">
                     <h3>Total Number of Sales</h3>
@@ -169,7 +169,7 @@ $conn->close();
                             <?php foreach ($recentSales as $sale): ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($sale['id']); ?></td>
-                                    <td>$<?php echo number_format($sale['amount'], 2); ?></td>
+                                    <td>Rs<?php echo number_format($sale['amount'], 2); ?></td>
                                     <td><?php echo htmlspecialchars($sale['created_at']); ?></td>
                                 </tr>
                             <?php endforeach; ?>
