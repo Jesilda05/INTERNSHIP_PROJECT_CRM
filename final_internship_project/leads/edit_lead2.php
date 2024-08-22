@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && empty($err)) {
 
     if (empty($name) || empty($email) || empty($phone) || empty($status)) {
         $err = "Please fill in all fields.";
-    } elseif (!preg_match('/^[a-zA-Z\s.,!?]+$/', $name)) {
+    } elseif (!preg_match('/^[a-zA-Z\s.]+$/', $name)) {
         $err = "Name can only contain letters, spaces, and basic punctuation.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $err = "Invalid email format.";
