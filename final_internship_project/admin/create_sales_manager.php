@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($name) || empty($email)) {
         $err = "Name and email are required.";
-    }elseif (!preg_match('/^[a-zA-Z\s.,!?]+$/', $name)) {
+    }elseif (!preg_match('/^[a-zA-Z\s.]+$/', $name)) {
         $err = "Name can only contain letters, spaces, and basic punctuation.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $err = "Invalid email format.";
