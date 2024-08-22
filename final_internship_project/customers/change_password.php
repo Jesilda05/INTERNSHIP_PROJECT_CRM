@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Customer') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sales_manager_id = $_SESSION['user_id'];
+    $cust_id = $_SESSION['user_id'];
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "SELECT password FROM customers WHERE id = ?";
 
         if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param('i', $sales_manager_id);
+            $stmt->bind_param('i', $cust_id);
 
             $stmt->execute();
             $result = $stmt->get_result();
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $sql_update = "UPDATE customers SET password = ? WHERE id = ?";
                     if ($stmt_update = $conn->prepare($sql_update)) {
-                        $stmt_update->bind_param('si', $hashed_new_password, $sales_manager_id);
+                        $stmt_update->bind_param('si', $hashed_new_password, $cust_id);
 
                         if ($stmt_update->execute()) {
                             $success = "Password changed successfully!";
