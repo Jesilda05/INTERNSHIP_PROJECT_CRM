@@ -2,12 +2,10 @@
 include('../mainconn/db_connect.php');
 
 
-// Function to check if a user is logged in
 function isLoggedIn() {
     return isset($_SESSION['user_id']) && isset($_SESSION['role']);
 }
 
-// Function to ensure user is authenticated and has the correct role
 function checkRole($role) {
     if (!isLoggedIn()) {
         header('Location: ../login.php');
@@ -15,13 +13,11 @@ function checkRole($role) {
     }
 
     if ($_SESSION['role'] !== $role) {
-        // Redirect to a different page or display an error message
         header('Location: ../unauthorized.php');
         exit();
     }
 }
 
-// Function to log out a user
 function logout() {
     session_unset();
     session_destroy();
@@ -54,7 +50,7 @@ function validateLogin($email, $password) {
     return false;
 }
 
-// Function to register a new user
+//  register a new user
 function registerUser($name, $email, $password, $role) {
     global $conn;
     $password_hashed = password_hash($password, PASSWORD_BCRYPT);

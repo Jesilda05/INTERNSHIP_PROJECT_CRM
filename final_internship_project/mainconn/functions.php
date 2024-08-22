@@ -1,12 +1,10 @@
 <?php
 // authentication.php
 
-// Check if session is not started yet and start it
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Remove the redirectIfNotLoggedIn() function from here if it's declared in functions.php
 
 if (!function_exists('login')) {
     function login($user_id, $role) {
